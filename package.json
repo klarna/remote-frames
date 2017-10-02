@@ -1,0 +1,35 @@
+{
+  "name": "unicorn-dialogs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "sagui build",
+    "dist": "sagui dist",
+    "format": "sagui format",
+    "start": "sagui develop --port 3000",
+    "test": "sagui test",
+    "test:lint": "sagui test:lint",
+    "test:typecheck": "sagui test:typecheck",
+    "test:unit": "sagui test:unit --coverage",
+    "test:unit:watch": "sagui test:unit --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/klarna/unicorn-dialogs.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/klarna/unicorn-dialogs/issues"
+  },
+  "homepage": "https://github.com/klarna/unicorn-dialogs#readme",
+  "devDependencies": {
+    "sagui": "^11.1.0"
+  },
+  "dependencies": {
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0"
+  }
+}
