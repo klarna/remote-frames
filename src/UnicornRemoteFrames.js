@@ -35,7 +35,9 @@ class RemoteFrames extends Component {
   }
 
   render() {
-    return this.state.stack[this.state.stack.length - 1]
+    return this.state.stack.map((jsx, index) => <div key={index} style={{display: index === this.state.stack.length - 1 ? 'block' : 'none'}}>
+      {jsx}
+    </div>)
   }
 }
 
