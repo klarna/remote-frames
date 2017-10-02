@@ -2,12 +2,21 @@
 
 / unicorn-remote-frames / rabbit-hole
 
-1. Remote render a component (react-entanglement)
+## TODO
+
+- UnicornRemoteFramesProvider -> set the dom element target
+  - Sets the `renderInRemote` and `removeFromRemote` handlers in React.context
+  - Add `onAddElementToStack` and `onEmptyStack` callbacks in
+
+---
+1. Remote render a component (react-entanglement) * (we are only doing it inside the same frame at least for now)
 2. Stack another component on top, and when closed / go back it removes it from the stack and renders the previous component
 
 3. Do the same, but in an iframe ("remote" setup)
 
 ## Notes
+
+- Apparently, there is no need for any fancy setup for communication, just reach in and render.
 
 - Back button could potentially be controlled by this component, since it is the one that knows what and if there are views in the stack (?). It could also offer the option to force back button to _not_ appear.
 - It could make sense to have the component that creates the iframe, but we don’t always need an iframe, so this solution should be generic.

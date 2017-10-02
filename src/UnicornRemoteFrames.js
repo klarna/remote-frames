@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-// import { type } from 'ramda'
+import { find } from 'ramda'
 import { render } from 'react-dom'
 
 let renderInRemote = () => {}
@@ -13,7 +13,7 @@ class RemoteFrames extends Component {
     }
 
     renderInRemote = jsx => {
-      const alreadyHere = this.state.stack.find(({ type }) => type === jsx.type)
+      const alreadyHere = find(({ type }) => type === jsx.type, this.state.stack)
       this.setState({ toRender: jsx })
 
       if (alreadyHere == null) {
@@ -40,8 +40,9 @@ class RemoteFrames extends Component {
 }
 
 const targetDomElement = document.createElement('div')
-targetDomElement.setAttribute('id', 'unicorn-remote-frames-target-domm-element')
-document.body.appendChild(targetDomElement)
+targetDomElement.setAttribute('id', 'unicorn-remote-frames-target-dom-element')
+
+window.parent.frames['target'].document.body.appendChild(targetDomElement)
 
 render(<RemoteFrames />, targetDomElement)
 
