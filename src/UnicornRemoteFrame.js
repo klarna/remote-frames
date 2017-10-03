@@ -2,10 +2,8 @@ import { Component } from 'react'
 import PropTypes from 'prop-types'
 
 class UnicornRemoteFrame extends Component {
-  constructor(props, context) {
-    super(props, context)
-
-    context.renderInRemote(props.children)
+  componentWillMount() {
+    this.context.renderInRemote(this.props.children)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -17,7 +15,7 @@ class UnicornRemoteFrame extends Component {
   }
 
   render() {
-    return false
+    return null
   }
 }
 

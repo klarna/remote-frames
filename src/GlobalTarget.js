@@ -10,7 +10,9 @@ class GlobalTarget extends Component {
     this.state = {
       stack: [],
     }
+  }
 
+  componentWillMount() {
     this.renderInRemote = jsx => {
       const alreadyHere = find(type => type === jsx.type, this.stackTypes)
 
@@ -43,9 +45,7 @@ class GlobalTarget extends Component {
         }
       )
     }
-  }
 
-  componentDidMount() {
     this.props.onReady(this.renderInRemote, this.removeFromRemote)
   }
 
@@ -54,14 +54,18 @@ class GlobalTarget extends Component {
   }
 
   render() {
-    return this.state.stack.map((jsx, index) => (
-      <div
-        key={index}
-        style={{ display: index === this.state.stack.length - 1 ? 'block' : 'none' }}
-      >
-        {jsx}
+    return (
+      <div>
+        {this.state.stack.map((jsx, index) => (
+          <div
+            key={index}
+            style={{ display: index === this.state.stack.length - 1 ? 'block' : 'none' }}
+          >
+            {jsx}
+          </div>
+        ))}
       </div>
-    ))
+    )
   }
 }
 

@@ -14,14 +14,16 @@ class UnicornRemoteFramesProvider extends Component {
       renderInRemote: jsx => this.queue.push(['render', jsx]),
       removeFromRemote: jsx => this.queue.push(['remove', jsx]),
     }
+  }
 
+  componentWillMount() {
     render(
       <GlobalTarget
-        onAddStackElement={props.onFrameAdded}
-        onEmptyStack={props.onNoFrames}
+        onAddStackElement={this.props.onFrameAdded}
+        onEmptyStack={this.props.onNoFrames}
         onReady={this.handleOnReady.bind(this)}
       />,
-      props.targetDomElement
+      this.props.targetDomElement
     )
   }
 
