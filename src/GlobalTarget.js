@@ -12,7 +12,7 @@ class GlobalTarget extends Component {
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.renderInRemote = jsx => {
       const alreadyHere = find(type => type === jsx.type, this.stackTypes)
 

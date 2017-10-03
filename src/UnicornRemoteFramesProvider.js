@@ -16,7 +16,7 @@ class UnicornRemoteFramesProvider extends Component {
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     render(
       <GlobalTarget
         onAddStackElement={this.props.onFrameAdded}

@@ -2,7 +2,7 @@ import { Component } from 'react'
 import PropTypes from 'prop-types'
 
 class UnicornRemoteFrame extends Component {
-  componentWillMount() {
+  componentDidMount() {
     this.context.renderInRemote(this.props.children)
   }
 
