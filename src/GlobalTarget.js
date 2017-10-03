@@ -22,6 +22,10 @@ class GlobalTarget extends Component {
         }))
 
         this.props.onAddStackElement(jsx)
+      } else {
+        this.setState(({ stack }) => ({
+          stack: stack.map(item => (item.type === jsx.type ? jsx : item)),
+        }))
       }
     }
 

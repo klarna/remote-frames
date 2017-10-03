@@ -8,10 +8,6 @@ class UnicornRemoteFrame extends Component {
     context.renderInRemote(props.children)
   }
 
-  componentDidMount() {
-    this.context.renderInRemote(this.props.children)
-  }
-
   componentWillReceiveProps(nextProps) {
     this.context.renderInRemote(nextProps.children)
   }
