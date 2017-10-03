@@ -29,7 +29,7 @@
 <UnicornDialogsProvider
   onAddStackElement={() => dispatch(openFSO())}
   onEmptyStack={() => dispatch(closeFSO())}
-  adapter={adapter}>
+  element={domElement}>
   <IdModule />
 </UnicornDialogsProvider>
 

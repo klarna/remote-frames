@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { render } from 'react-dom'
-import UnicornRemoteFrames from './UnicornRemoteFrames'
+import UnicornRemoteFramesProvider from './UnicornRemoteFramesProvider'
+import UnicornRemoteFrame from './UnicornRemoteFrame'
 
 class Article extends Component {
   constructor(props) {
@@ -42,6 +43,10 @@ const Section = props => (
   </section>
 )
 
+const targetDomElement = document.createElement('div')
+targetDomElement.setAttribute('id', 'remote-root')
+window.parent.frames['target'].document.body.appendChild(targetDomElement)
+
 class Demo extends Component {
   constructor() {
     super()
@@ -54,24 +59,30 @@ class Demo extends Component {
 
   render() {
     return (
-      <div>
-        {this.state.removeFirstOne || (
-          <UnicornRemoteFrames>
-            <Article red />
-          </UnicornRemoteFrames>
-        )}
+      <UnicornRemoteFramesProvider
+        targetDomElement={targetDomElement}
+        onFrameAdded={jsx => console.log('onFrameAdded', jsx)}
+        onNoFrames={jsx => console.log('onNoFrames', jsx)}
+      >
+        <div>
+          {this.state.removeFirstOne || (
+            <UnicornRemoteFrame>
+              <Article red />
+            </UnicornRemoteFrame>
+          )}
 
-        {this.state.initial || (
-          <UnicornRemoteFrames>
-            <Section green />
-          </UnicornRemoteFrames>
-        )}
+          {this.state.initial || (
+            <UnicornRemoteFrame>
+              <Section green />
+            </UnicornRemoteFrame>
+          )}
 
-        <button onClick={() => this.setState({ initial: !this.state.initial })}>Replace</button>
-        <button onClick={() => this.setState({ removeFirstOne: !this.state.removeFirstOne })}>
-          Replace
-        </button>
-      </div>
+          <button onClick={() => this.setState({ initial: !this.state.initial })}>Replace</button>
+          <button onClick={() => this.setState({ removeFirstOne: !this.state.removeFirstOne })}>
+            Replace
+          </button>
+        </div>
+      </UnicornRemoteFramesProvider>
     )
   }
 }
