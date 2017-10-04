@@ -10,8 +10,22 @@ class UnicornRemoteFramesProvider extends Component {
     this.queue = []
 
     this.state = {
-      renderInRemote: renderInformation => this.queue.push(['render', renderInformation]),
-      removeFromRemote: jsx => this.queue.push(['remove', jsx]),
+      renderInRemote: renderInformation => {
+        if (this.queue == null) {
+          throw new Error(
+            'The queue in the UnicornRemoteFramesProvider was flushed, yet the UnicornRemoteFrame is trying to use the `renderInRemote` that will add to the queue. This means the UnicornRemoteFrame did not pick up the React.context update: check the elements in between, if they are intercepting the context in some way.'
+          )
+        }
+        this.queue.push(['render', renderInformation])
+      },
+      removeFromRemote: jsx => {
+        if (this.queue == null) {
+          throw new Error(
+            'The queue in the UnicornRemoteFramesProvider was flushed, yet the UnicornRemoteFrame is trying to use the `removeFromRemote` that will add to the queue. This means the UnicornRemoteFrame did not pick up the React.context update: check the elements in between, if they are intercepting the context in some way.'
+          )
+        }
+        this.queue.push(['remove', jsx])
+      },
     }
   }
 

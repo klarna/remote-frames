@@ -54,9 +54,9 @@ class Demo extends Component {
           {this.state.initial || (
             <UnicornRemoteFrame id="Top level section">
               <Section green />
-              {this.state.removeFirstOne || <FakeArticle red />}
             </UnicornRemoteFrame>
           )}
+          {this.state.removeFirstOne || <FakeArticle red />}
 
           <button onClick={() => this.setState({ initial: !this.state.initial })}>List</button>
 
