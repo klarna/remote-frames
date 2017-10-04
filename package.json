@@ -1,7 +1,7 @@
 {
   "name": "@klarna/unicorn-remote-frames",
   "version": "0.0.1",
-  "description": "Remote rendering frames that move mountains",
+  "description": "Render a subset of the React tree to a different location, from many locations, without having to coordinate them",
   "main": "dist/index.js",
   "scripts": {
     "build": "sagui build",
