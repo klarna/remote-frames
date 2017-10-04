@@ -1,0 +1,16 @@
+language: node_js
+node_js:
+- '7'
+before_script:
+- npm install
+script:
+- npm test
+deploy:
+  skip_cleanup: true
+  provider: npm
+  email: ui-admin.e@klarna.com
+  api_key:
+    secure: cWLSSz0ID9ywtr+NmgNFwK1ldAns/VHWdJPzgl2oBYPW2uS+gbRx4cnrTbCUTgtrdusoT7BV5T6JUWBWgPWQr7wGPXqi79HlFxOeWXrvHetU1IT8RLvJ9GCGKpiHQJ5FudEUEG15S+N0LQYm3yDAFx6Hb9NZHRxDzE7Hg0LNQdU5WZh+A2yqLCptdhz06PeGltkrszvr58riTcqK4GeHV4HxeTUXipjHozlU5nLEVfF1Y442cxJF04So4Zx9lIhlHeUlD5tYGqsEVGasEc+8vpoxLYCGzmu7TCBpn6mr4Pq3iAE8ZMK8Y+4ycqXargRN9SQl324dO0rA/eGT+hwGc2vRBuDj7Ngo4u8IM45IwWOHANW3XgUD+MkJYeV33AdCxDcGqbVhPRTLjsxRW4On2oMIAJNZXPH5ipyQ7qvCNQ35FmUCn/tcPc0W0UrG3MRbqd5SGu8DhhjTiSaFHNVftw9mBHITWmnS91ujD305+ryVVEaeGCaeXFmGWB2K8S5XzCE510A84kOmkDG1gVRl2NTY/QOL8sKcu5g3na1hS8YuzyJbixFRdUfOuwksIYz67fFSl3P/fCuUoMU11ST1B4Jf/u/VZ/NddVK5dri3D/d6c+pNAt2FsZBcEFillisGPcaaJjBQUs/cYMQPPVMhdoeG6o8ya8C9afeuDW3ubko=
+  on:
+    tags: true
+    repo: klarna/unicorn-remote-frames
