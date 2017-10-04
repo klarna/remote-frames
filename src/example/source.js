@@ -5,15 +5,7 @@ import PropTypes from 'prop-types'
 import UnicornRemoteFramesProvider from '../UnicornRemoteFramesProvider'
 import UnicornRemoteFrame from '../UnicornRemoteFrame'
 import FakeArticle from './FakeArticle'
-
-const Section = props => (
-  <section>
-    <ul>
-      <li>A</li>
-      <li>B</li>
-    </ul>
-  </section>
-)
+import Section from './Section'
 
 const targetDomElement = document.createElement('div')
 targetDomElement.setAttribute('id', 'remote-root')
@@ -22,12 +14,14 @@ window.parent.frames['target'].document.body.appendChild(targetDomElement)
 const Wrapper = withContext(
   {
     theme: PropTypes.object,
+    values: PropTypes.array,
   },
   () => ({
     theme: {
       borderColor: 'black',
       backgroundColor: 'red',
     },
+    values: ['yes', 'from', 'context'],
   })
 )(props => <div {...props} />)
 
@@ -44,6 +38,9 @@ class Demo extends Component {
   render() {
     return (
       <UnicornRemoteFramesProvider
+        contextTypes={{
+          values: PropTypes.array,
+        }}
         targetDomElement={
           new Promise(resolve => {
             setTimeout(() => resolve(targetDomElement), 1000)

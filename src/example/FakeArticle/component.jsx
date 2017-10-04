@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { compose, defaultProps, getContext } from 'recompose'
 
 function Article(props) {
-  const { red, green, likes, onClick, theme } = props
+  const { likes, onClick, theme } = props
 
   return (
     <article

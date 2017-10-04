@@ -47,14 +47,20 @@ const createCapturedContextComponent = (contextTypes = {}) => {
 }
 
 class UnicornRemoteFrame extends Component {
-  constructor(props) {
-    super(props)
+  constructor(props, context) {
+    super(props, context)
 
-    this.CapturedContextComponent = createCapturedContextComponent(props.contextTypes)
+    this.CapturedContextComponent = createCapturedContextComponent({
+      ...context.unicornContextTypes,
+      ...props.contextTypes,
+    })
   }
 
   componentWillReceiveProps(nextProps) {
-    this.CapturedContextComponent = createCapturedContextComponent(nextProps.contextTypes)
+    this.CapturedContextComponent = createCapturedContextComponent({
+      ...this.context.unicornContextTypes,
+      ...nextProps.contextTypes,
+    })
   }
 
   componentWillUnmount() {
@@ -68,6 +74,7 @@ class UnicornRemoteFrame extends Component {
 
 UnicornRemoteFrame.contextTypes = {
   removeFromRemote: PropTypes.func,
+  unicornContextTypes: PropTypes.object,
 }
 
 export default UnicornRemoteFrame

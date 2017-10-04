@@ -58,6 +58,7 @@ class UnicornRemoteFramesProvider extends Component {
     return {
       renderInRemote: this.state.renderInRemote,
       removeFromRemote: this.state.removeFromRemote,
+      unicornContextTypes: this.props.contextTypes,
     }
   }
 
@@ -69,6 +70,7 @@ class UnicornRemoteFramesProvider extends Component {
 UnicornRemoteFramesProvider.childContextTypes = {
   renderInRemote: PropTypes.func,
   removeFromRemote: PropTypes.func,
+  unicornContextTypes: PropTypes.object,
 }
 
 export default UnicornRemoteFramesProvider
