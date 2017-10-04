@@ -79,8 +79,6 @@ class UnicornRemoteFrame extends Component {
   }
 
   render() {
-    console.log('cache', capturedContextComponentsCache)
-
     return <this.CapturedContextComponent {...this.props} />
   }
 }

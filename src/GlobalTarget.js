@@ -80,8 +80,6 @@ class GlobalTarget extends Component {
     return (
       <this.SetContextComponent context={context}>
         {stack.map((jsx, index) => {
-          console.log('GlobalTarget render', jsx)
-
           return (
             <div key={index} style={{ display: index === stack.length - 1 ? 'block' : 'none' }}>
               {jsx}

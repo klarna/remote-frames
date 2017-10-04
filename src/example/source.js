@@ -39,6 +39,7 @@ class Demo extends Component {
     return (
       <UnicornRemoteFramesProvider
         contextTypes={{
+          theme: PropTypes.object,
           values: PropTypes.array,
         }}
         targetDomElement={
