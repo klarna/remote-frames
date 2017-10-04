@@ -61,25 +61,35 @@ class UnicornRemoteFrame extends Component {
   constructor(props, context) {
     super(props, context)
 
-    this.CapturedContextComponent = createCapturedContextComponent({
-      ...context.unicornContextTypes,
-      ...props.contextTypes,
-    })
+    if (context.removeFromRemote != null) {
+      this.CapturedContextComponent = createCapturedContextComponent({
+        ...context.unicornContextTypes,
+        ...props.contextTypes,
+      })
+    }
   }
 
   componentWillReceiveProps(nextProps) {
-    this.CapturedContextComponent = createCapturedContextComponent({
-      ...this.context.unicornContextTypes,
-      ...nextProps.contextTypes,
-    })
+    if (this.context.removeFromRemote != null) {
+      this.CapturedContextComponent = createCapturedContextComponent({
+        ...this.context.unicornContextTypes,
+        ...nextProps.contextTypes,
+      })
+    }
   }
 
   componentWillUnmount() {
-    this.context.removeFromRemote(this.props.children)
+    if (this.context.removeFromRemote != null) {
+      this.context.removeFromRemote(this.props.children)
+    }
   }
 
   render() {
-    return <this.CapturedContextComponent {...this.props} />
+    if (this.CapturedContextComponent != null) {
+      return <this.CapturedContextComponent {...this.props} />
+    } else {
+      return this.props.children
+    }
   }
 }
 
