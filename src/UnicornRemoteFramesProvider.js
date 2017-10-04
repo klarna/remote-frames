@@ -17,13 +17,21 @@ class UnicornRemoteFramesProvider extends Component {
   }
 
   componentDidMount() {
+    if (this.props.targetDomElement instanceof HTMLElement) {
+      this.renderGlobalTarget(this.props.targetDomElement)
+    } else {
+      this.props.targetDomElement.then(this.renderGlobalTarget.bind(this))
+    }
+  }
+
+  renderGlobalTarget(targetDomElement) {
     render(
       <GlobalTarget
         onAddStackElement={this.props.onFrameAdded}
         onEmptyStack={this.props.onNoFrames}
         onReady={this.handleOnReady.bind(this)}
       />,
-      this.props.targetDomElement
+      targetDomElement
     )
   }
 

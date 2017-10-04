@@ -61,7 +61,11 @@ class Demo extends Component {
   render() {
     return (
       <UnicornRemoteFramesProvider
-        targetDomElement={targetDomElement}
+        targetDomElement={
+          new Promise(resolve => {
+            setTimeout(() => resolve(targetDomElement), 1000)
+          })
+        }
         onFrameAdded={jsx => console.log('onFrameAdded', jsx)}
         onNoFrames={jsx => console.log('onNoFrames', jsx)}
       >

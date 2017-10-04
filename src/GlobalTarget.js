@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { find } from 'ramda'
 
 class GlobalTarget extends Component {
   constructor() {
@@ -14,9 +13,7 @@ class GlobalTarget extends Component {
 
   componentDidMount() {
     this.renderInRemote = jsx => {
-      const alreadyHere = find(type => type === jsx.type, this.stackTypes)
-
-      if (alreadyHere == null) {
+      if (this.stackTypes.filter(type => type === jsx.type).length === 0) {
         this.stackTypes = [...this.stackTypes, jsx.type]
 
         this.setState(({ stack }) => ({
@@ -47,10 +44,6 @@ class GlobalTarget extends Component {
     }
 
     this.props.onReady(this.renderInRemote, this.removeFromRemote)
-  }
-
-  componentDidUpdate() {
-    console.log('CURRENT STACK', this.state.stack)
   }
 
   render() {
