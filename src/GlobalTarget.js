@@ -1,4 +1,10 @@
 import React, { Component } from 'react'
+import { withContext } from 'recompose'
+
+const createSetContextComponent = (contextTypes = {}) =>
+  withContext(contextTypes, props => ({
+    ...props.context,
+  }))(({ children }) => <div>{children}</div>)
 
 class GlobalTarget extends Component {
   constructor() {
@@ -6,23 +12,29 @@ class GlobalTarget extends Component {
 
     this.stackTypes = []
 
+    this.SetContextComponent = createSetContextComponent({})
+
     this.state = {
       stack: [],
     }
   }
 
   componentDidMount() {
-    this.renderInRemote = jsx => {
+    this.renderInRemote = ({ jsx, context, contextTypes }) => {
+      this.SetContextComponent = createSetContextComponent(contextTypes)
+
       if (this.stackTypes.filter(type => type === jsx.type).length === 0) {
         this.stackTypes = [...this.stackTypes, jsx.type]
 
         this.setState(({ stack }) => ({
+          context,
           stack: [...stack, jsx],
         }))
 
         this.props.onAddStackElement(jsx)
       } else {
         this.setState(({ stack }) => ({
+          context,
           stack: stack.map(item => (item.type === jsx.type ? jsx : item)),
         }))
       }
@@ -47,17 +59,20 @@ class GlobalTarget extends Component {
   }
 
   render() {
+    const { context, stack } = this.state
+
     return (
-      <div>
-        {this.state.stack.map((jsx, index) => (
-          <div
-            key={index}
-            style={{ display: index === this.state.stack.length - 1 ? 'block' : 'none' }}
-          >
-            {jsx}
-          </div>
-        ))}
-      </div>
+      <this.SetContextComponent context={context}>
+        {stack.map((jsx, index) => {
+          console.log('GlobalTarget render', jsx)
+
+          return (
+            <div key={index} style={{ display: index === stack.length - 1 ? 'block' : 'none' }}>
+              {jsx}
+            </div>
+          )
+        })}
+      </this.SetContextComponent>
     )
   }
 }

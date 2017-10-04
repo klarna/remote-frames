@@ -10,7 +10,7 @@ class UnicornRemoteFramesProvider extends Component {
     this.queue = []
 
     this.state = {
-      renderInRemote: jsx => this.queue.push(['render', jsx]),
+      renderInRemote: renderInformation => this.queue.push(['render', renderInformation]),
       removeFromRemote: jsx => this.queue.push(['remove', jsx]),
     }
   }
@@ -41,11 +41,11 @@ class UnicornRemoteFramesProvider extends Component {
         removeFromRemote,
       },
       () => {
-        this.queue.forEach(([type, jsx]) => {
+        this.queue.forEach(([type, renderInformation]) => {
           if (type === 'render') {
-            renderInRemote(jsx)
+            renderInRemote(renderInformation)
           } else {
-            removeFromRemote(jsx)
+            removeFromRemote(renderInformation)
           }
         })
 

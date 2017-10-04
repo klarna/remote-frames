@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { render } from 'react-dom'
+import { withContext } from 'recompose'
+import PropTypes from 'prop-types'
 import UnicornRemoteFramesProvider from '../UnicornRemoteFramesProvider'
 import UnicornRemoteFrame from '../UnicornRemoteFrame'
 import FakeArticle from './FakeArticle'
@@ -16,6 +18,18 @@ const Section = props => (
 const targetDomElement = document.createElement('div')
 targetDomElement.setAttribute('id', 'remote-root')
 window.parent.frames['target'].document.body.appendChild(targetDomElement)
+
+const Wrapper = withContext(
+  {
+    theme: PropTypes.object,
+  },
+  () => ({
+    theme: {
+      borderColor: 'black',
+      backgroundColor: 'red',
+    },
+  })
+)(props => <div {...props} />)
 
 class Demo extends Component {
   constructor() {
@@ -38,7 +52,7 @@ class Demo extends Component {
         onFrameAdded={jsx => console.log('onFrameAdded', jsx)}
         onNoFrames={jsx => console.log('onNoFrames', jsx)}
       >
-        <div>
+        <Wrapper>
           {this.state.removeFirstOne || <FakeArticle red />}
           {this.state.initial || (
             <UnicornRemoteFrame>
@@ -50,7 +64,7 @@ class Demo extends Component {
           <button onClick={() => this.setState({ removeFirstOne: !this.state.removeFirstOne })}>
             Replace
           </button>
-        </div>
+        </Wrapper>
       </UnicornRemoteFramesProvider>
     )
   }

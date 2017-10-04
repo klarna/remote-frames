@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import ArticleComponent from './component'
 import UnicornRemoteFrame from '../../UnicornRemoteFrame'
@@ -6,7 +7,7 @@ import UnicornRemoteFrame from '../../UnicornRemoteFrame'
 class ArticleContainer extends React.Component {
   render() {
     return (
-      <UnicornRemoteFrame>
+      <UnicornRemoteFrame contextTypes={{ theme: PropTypes.object }}>
         <ArticleComponent {...this.props} />
       </UnicornRemoteFrame>
     )

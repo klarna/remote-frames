@@ -1,10 +1,19 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+import { compose, defaultProps, getContext } from 'recompose'
 
-export default function Article(props) {
-  const { red, green, likes, onClick } = props
+function Article(props) {
+  const { red, green, likes, onClick, theme } = props
 
   return (
-    <article style={{ backgroundColor: red ? 'red' : green && 'green' }}>
+    <article
+      style={{
+        borderWidth: 2,
+        borderColor: theme.borderColor,
+        borderStyle: 'dashed',
+        backgroundColor: theme.backgroundColor,
+      }}
+    >
       <h1>Hello World!</h1>
       <strong>{likes} people like this article</strong>
       <button onClick={onClick}>Like</button>
@@ -19,3 +28,15 @@ export default function Article(props) {
     </article>
   )
 }
+
+export default compose(
+  getContext({
+    theme: PropTypes.object,
+  }),
+  defaultProps({
+    theme: {
+      borderColor: 'blue',
+      backgroundColor: 'lightgray',
+    },
+  })
+)(Article)

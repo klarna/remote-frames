@@ -1,13 +1,60 @@
-import { Component } from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
+const capturedContextComponentsCache = []
+
+const doRemoteRender = (renderInRemote, context, contextTypes, children) => {
+  renderInRemote({
+    jsx: children,
+    context: Object.keys(contextTypes).reduce(
+      (contextSoFar, key) => ({
+        ...contextSoFar,
+        [key]: context[key],
+      }),
+      {}
+    ),
+    contextTypes,
+  })
+}
+
+const createCapturedContextComponent = (contextTypes = {}) => {
+  class CapturedContextComponent extends Component {
+    componentDidMount() {
+      const { renderInRemote } = this.context
+      const { children } = this.props
+
+      doRemoteRender(renderInRemote, this.context, contextTypes, children)
+    }
+
+    componentWillReceiveProps(nextProps) {
+      const { renderInRemote } = this.context
+      const { children } = nextProps
+
+      doRemoteRender(renderInRemote, this.context, contextTypes, children)
+    }
+
+    render() {
+      return null
+    }
+  }
+
+  CapturedContextComponent.contextTypes = {
+    renderInRemote: PropTypes.func,
+    ...contextTypes,
+  }
+
+  return CapturedContextComponent
+}
+
 class UnicornRemoteFrame extends Component {
-  componentDidMount() {
-    this.context.renderInRemote(this.props.children)
+  constructor(props) {
+    super(props)
+
+    this.CapturedContextComponent = createCapturedContextComponent(props.contextTypes)
   }
 
   componentWillReceiveProps(nextProps) {
-    this.context.renderInRemote(nextProps.children)
+    this.CapturedContextComponent = createCapturedContextComponent(nextProps.contextTypes)
   }
 
   componentWillUnmount() {
@@ -15,12 +62,11 @@ class UnicornRemoteFrame extends Component {
   }
 
   render() {
-    return null
+    return <this.CapturedContextComponent {...this.props} />
   }
 }
 
 UnicornRemoteFrame.contextTypes = {
-  renderInRemote: PropTypes.func,
   removeFromRemote: PropTypes.func,
 }
 
