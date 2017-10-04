@@ -7,7 +7,6 @@ class UnicornRemoteFramesProvider extends Component {
   constructor(props) {
     super(props)
 
-    // Queue calls and flush when available
     this.queue = []
 
     this.state = {
