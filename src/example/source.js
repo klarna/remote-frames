@@ -51,16 +51,17 @@ class Demo extends Component {
         onNoFrames={jsx => console.log('onNoFrames', jsx)}
       >
         <Wrapper>
-          {this.state.removeFirstOne || <FakeArticle red />}
           {this.state.initial || (
-            <UnicornRemoteFrame>
+            <UnicornRemoteFrame id="Top level section">
               <Section green />
+              {this.state.removeFirstOne || <FakeArticle red />}
             </UnicornRemoteFrame>
           )}
 
-          <button onClick={() => this.setState({ initial: !this.state.initial })}>Replace</button>
+          <button onClick={() => this.setState({ initial: !this.state.initial })}>List</button>
+
           <button onClick={() => this.setState({ removeFirstOne: !this.state.removeFirstOne })}>
-            Replace
+            Article
           </button>
         </Wrapper>
       </UnicornRemoteFramesProvider>

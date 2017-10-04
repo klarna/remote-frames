@@ -6,7 +6,7 @@ import UnicornRemoteFrame from '../../UnicornRemoteFrame'
 class ArticleContainer extends React.Component {
   render() {
     return (
-      <UnicornRemoteFrame>
+      <UnicornRemoteFrame id="Inside the article">
         <ArticleComponent {...this.props} />
       </UnicornRemoteFrame>
     )
@@ -21,14 +21,19 @@ const mapStateToProps = state => {
   }
 }
 
+let globalDispatch = () => {}
+
+const onClickHandler = () =>
+  globalDispatch({
+    type: 'LIKE_CLICKED',
+    payload: 1,
+  })
+
 const mapDispatchToProps = dispatch => {
+  globalDispatch = dispatch
+
   return {
-    onClick: () => {
-      dispatch({
-        type: 'LIKE_CLICKED',
-        payload: 1,
-      })
-    },
+    onClick: onClickHandler,
   }
 }
 

@@ -32,14 +32,28 @@ const createCapturedContextComponent = (contextTypes = {}) => {
       const { renderInRemote } = this.context
       const { children } = this.props
 
-      doRemoteRender(renderInRemote, this.context, contextTypes, children)
+      doRemoteRender(
+        renderInRemote,
+        this.context,
+        { renderInRemote: PropTypes.func, ...contextTypes },
+        children
+      )
     }
 
-    componentWillReceiveProps(nextProps) {
-      const { renderInRemote } = this.context
-      const { children } = nextProps
+    shouldComponentUpdate(nextProps) {
+      return !equals(this.props.children, nextProps.children)
+    }
 
-      doRemoteRender(renderInRemote, this.context, contextTypes, children)
+    componentDidUpdate() {
+      const { renderInRemote } = this.context
+      const { children } = this.props
+
+      doRemoteRender(
+        renderInRemote,
+        this.context,
+        { renderInRemote: PropTypes.func, ...contextTypes },
+        children
+      )
     }
 
     render() {
@@ -48,6 +62,11 @@ const createCapturedContextComponent = (contextTypes = {}) => {
   }
 
   CapturedContextComponent.contextTypes = {
+    renderInRemote: PropTypes.func,
+    ...contextTypes,
+  }
+
+  CapturedContextComponent.childContextTypes = {
     renderInRemote: PropTypes.func,
     ...contextTypes,
   }
@@ -65,6 +84,7 @@ class UnicornRemoteFrame extends Component {
       this.CapturedContextComponent = createCapturedContextComponent({
         ...context.unicornContextTypes,
         ...props.contextTypes,
+        ...UnicornRemoteFrame.contextTypes,
       })
     }
   }
@@ -74,6 +94,7 @@ class UnicornRemoteFrame extends Component {
       this.CapturedContextComponent = createCapturedContextComponent({
         ...this.context.unicornContextTypes,
         ...nextProps.contextTypes,
+        ...UnicornRemoteFrame.contextTypes,
       })
     }
   }
