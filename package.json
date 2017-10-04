@@ -35,11 +35,11 @@
     "redux": "^3.7.2",
     "prop-types": "^15.6.0",
     "react": "15.5.4",
-    "react-dom": "15.5.4",
+    "react-dom": "15.5.4"
   },
   "peerDependencies": {
     "prop-types": "^15.6.0",
     "react": "15.5.4",
-    "react-dom": "15.5.4",
+    "react-dom": "15.5.4"
   }
 }

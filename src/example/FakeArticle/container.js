@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import ArticleComponent from './component'
-import UnicornRemoteFrame from '../UnicornRemoteFrame'
+import UnicornRemoteFrame from '../../UnicornRemoteFrame'
 
 class ArticleContainer extends React.Component {
   render() {
