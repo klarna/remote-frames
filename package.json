@@ -17,28 +17,29 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/klarna/unicorn-dialogs.git"
+    "url": "git+https://github.com/klarna/unicorn-remote-frames.git"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/klarna/unicorn-dialogs/issues"
+    "url": "https://github.com/klarna/unicorn-remote-frames/issues"
   },
-  "homepage": "https://github.com/klarna/unicorn-dialogs#readme",
+  "homepage": "https://github.com/klarna/unicorn-remote-frames#readme",
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-3": "^6.24.1",
-    "sagui": "^11.1.0"
-  },
-  "dependencies": {
+    "sagui": "^11.1.0",
+    "react-redux": "^5.0.6",
+    "redux": "^3.7.2",
     "prop-types": "^15.6.0",
-    "ramda": "^0.24.1",
     "react": "15.5.4",
     "react-dom": "15.5.4",
-    "react-redux": "^5.0.6",
-    "redux": "^3.7.2"
+  },
+  "peerDependencies": {
+    "prop-types": "^15.6.0",
+    "react": "15.5.4",
+    "react-dom": "15.5.4",
   }
 }
