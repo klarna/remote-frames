@@ -4,7 +4,7 @@ import { compose, defaultProps, getContext } from 'recompose'
 
 const Section = ({ values }) => (
   <section>
-    <ul>{values.map(value => <li>{value}</li>)}</ul>
+    <ul>{values.map(value => <li key={value}>{value}</li>)}</ul>
   </section>
 )
 

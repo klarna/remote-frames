@@ -1,10 +1,26 @@
 import React, { Component } from 'react'
 import { withContext } from 'recompose'
+import equals from 'ramda/src/equals'
 
-const createSetContextComponent = (contextTypes = {}) =>
-  withContext(contextTypes, props => ({
+const setContextComponentsCache = []
+
+const createSetContextComponent = (contextTypes = {}) => {
+  const cachedSetContextComponents = setContextComponentsCache.filter(([cachedContextTypes]) =>
+    equals(cachedContextTypes, contextTypes)
+  )
+
+  if (cachedSetContextComponents.length === 1) {
+    return cachedSetContextComponents[0][1]
+  }
+
+  const SetContextComponent = withContext(contextTypes, props => ({
     ...props.context,
   }))(({ children }) => <div>{children}</div>)
+
+  setContextComponentsCache.push([contextTypes, SetContextComponent])
+
+  return SetContextComponent
+}
 
 class GlobalTarget extends Component {
   constructor() {

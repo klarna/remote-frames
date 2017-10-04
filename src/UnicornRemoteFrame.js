@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import equals from 'ramda/src/equals'
 
 const capturedContextComponentsCache = []
 
@@ -18,6 +19,14 @@ const doRemoteRender = (renderInRemote, context, contextTypes, children) => {
 }
 
 const createCapturedContextComponent = (contextTypes = {}) => {
+  const cachedCapturedContextComponents = capturedContextComponentsCache.filter(
+    ([cachedContextTypes]) => equals(cachedContextTypes, contextTypes)
+  )
+
+  if (cachedCapturedContextComponents.length === 1) {
+    return cachedCapturedContextComponents[0][1]
+  }
+
   class CapturedContextComponent extends Component {
     componentDidMount() {
       const { renderInRemote } = this.context
@@ -42,6 +51,8 @@ const createCapturedContextComponent = (contextTypes = {}) => {
     renderInRemote: PropTypes.func,
     ...contextTypes,
   }
+
+  capturedContextComponentsCache.push([contextTypes, CapturedContextComponent])
 
   return CapturedContextComponent
 }
@@ -68,6 +79,8 @@ class UnicornRemoteFrame extends Component {
   }
 
   render() {
+    console.log('cache', capturedContextComponentsCache)
+
     return <this.CapturedContextComponent {...this.props} />
   }
 }
