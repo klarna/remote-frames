@@ -59,7 +59,7 @@ class App extends Component {
           frameJSX
         )
       }}
-      onNoFrames={lastJSXRemoved => {
+      onEmptyStack={lastJSXRemoved => {
         console.log(
           'all frames have been removed from the stack',
           lastJSXRemoved
@@ -95,7 +95,7 @@ class App extends Component {
 
 render(
   <App />,
-  document.getElementById('root')
+  document.getElementById('main-content-node')
 )
 ```
 
@@ -178,7 +178,7 @@ const App = withContext(
 
 render(
   <App />,
-  document.getElementById('root')
+  document.getElementById('main-content-node')
 )
 ```
 
