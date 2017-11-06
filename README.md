@@ -59,7 +59,7 @@ class App extends Component {
           frameJSX
         )
       }}
-      onEmptyStack={lastJSXRemoved => {
+      onNoFrames={lastJSXRemoved => {
         console.log(
           'all frames have been removed from the stack',
           lastJSXRemoved
@@ -187,7 +187,7 @@ render(
 Two callbacks are available on `UnicornRemoteFramesProvider`:
 
 - `onFrameAdded`: gets call whenever another frame is added to the stack
-- `onEmptyStack`: gets call whenever all frames are removed from the stack
+- `onNoFrames`: gets call whenever all frames are removed from the stack
 
 ### Passing the `targetDomElement`
 
