@@ -95,7 +95,7 @@ class App extends Component {
 
 render(
   <App />,
-  document.getElementById('root')
+  document.getElementById('main-content-node')
 )
 ```
 
@@ -178,7 +178,7 @@ const App = withContext(
 
 render(
   <App />,
-  document.getElementById('root')
+  document.getElementById('main-content-node')
 )
 ```
 
@@ -187,7 +187,7 @@ render(
 Two callbacks are available on `RemoteFramesProvider`:
 
 - `onFrameAdded`: gets call whenever another frame is added to the stack
-- `onEmptyStack`: gets call whenever all frames are removed from the stack
+- `onNoFrames`: gets call whenever all frames are removed from the stack
 
 ### Passing the `targetDomElement`
 
