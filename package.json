@@ -9,7 +9,7 @@
     "format": "sagui format",
     "prepublishOnly": "babel src/ -d dist/ --ignore spec.js,example/",
     "start": "sagui develop --port 3000",
-    "test": "sagui test",
+    "test": "sagui test:lint",
     "test:lint": "sagui test:lint",
     "test:typecheck": "sagui test:typecheck",
     "test:unit": "sagui test:unit --coverage",
