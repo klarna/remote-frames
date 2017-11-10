@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { render } from 'react-dom'
 import GlobalTarget from './GlobalTarget'
 
-class UnicornRemoteFramesProvider extends Component {
+class RemoteFramesProvider extends Component {
   constructor(props) {
     super(props)
 
@@ -13,7 +13,7 @@ class UnicornRemoteFramesProvider extends Component {
       renderInRemote: renderInformation => {
         if (this.queue == null) {
           throw new Error(
-            'The queue in the UnicornRemoteFramesProvider was flushed, yet the UnicornRemoteFrame is trying to use the `renderInRemote` that will add to the queue. This means the UnicornRemoteFrame did not pick up the React.context update: check the elements in between, if they are intercepting the context in some way.'
+            'The queue in the RemoteFramesProvider was flushed, yet the RemoteFrame is trying to use the `renderInRemote` that will add to the queue. This means the RemoteFrame did not pick up the React.context update: check the elements in between, if they are intercepting the context in some way.'
           )
         }
         this.queue.push(['render', renderInformation])
@@ -21,7 +21,7 @@ class UnicornRemoteFramesProvider extends Component {
       removeFromRemote: jsx => {
         if (this.queue == null) {
           throw new Error(
-            'The queue in the UnicornRemoteFramesProvider was flushed, yet the UnicornRemoteFrame is trying to use the `removeFromRemote` that will add to the queue. This means the UnicornRemoteFrame did not pick up the React.context update: check the elements in between, if they are intercepting the context in some way.'
+            'The queue in the RemoteFramesProvider was flushed, yet the RemoteFrame is trying to use the `removeFromRemote` that will add to the queue. This means the RemoteFrame did not pick up the React.context update: check the elements in between, if they are intercepting the context in some way.'
           )
         }
         this.queue.push(['remove', jsx])
@@ -72,7 +72,7 @@ class UnicornRemoteFramesProvider extends Component {
     return {
       renderInRemote: this.state.renderInRemote,
       removeFromRemote: this.state.removeFromRemote,
-      unicornContextTypes: this.props.contextTypes,
+      remoteFrameContextTypes: this.props.contextTypes,
     }
   }
 
@@ -81,10 +81,10 @@ class UnicornRemoteFramesProvider extends Component {
   }
 }
 
-UnicornRemoteFramesProvider.childContextTypes = {
+RemoteFramesProvider.childContextTypes = {
   renderInRemote: PropTypes.func,
   removeFromRemote: PropTypes.func,
-  unicornContextTypes: PropTypes.object,
+  remoteFrameContextTypes: PropTypes.object,
 }
 
-export default UnicornRemoteFramesProvider
+export default RemoteFramesProvider

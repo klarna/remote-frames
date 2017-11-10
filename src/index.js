@@ -1,2 +1,2 @@
-export { default as UnicornRemoteFrame } from './UnicornRemoteFrame'
-export { default as UnicornRemoteFramesProvider } from './UnicornRemoteFramesProvider'
+export { default as RemoteFrame } from './RemoteFrame'
+export { default as RemoteFramesProvider } from './RemoteFramesProvider'

@@ -1,14 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import ArticleComponent from './component'
-import UnicornRemoteFrame from '../../UnicornRemoteFrame'
+import RemoteFrame from '../../RemoteFrame'
 
 class ArticleContainer extends React.Component {
   render() {
     return (
-      <UnicornRemoteFrame id="Inside the article">
+      <RemoteFrame id="Inside the article">
         <ArticleComponent {...this.props} />
-      </UnicornRemoteFrame>
+      </RemoteFrame>
     )
   }
 }

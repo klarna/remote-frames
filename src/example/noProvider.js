@@ -1,12 +1,12 @@
 import React from 'react'
 import { render } from 'react-dom'
-import UnicornRemoteFrame from '../UnicornRemoteFrame'
+import RemoteFrame from '../RemoteFrame'
 
 render(
   <div>
-    <UnicornRemoteFrame>
+    <RemoteFrame>
       <p>Hello inline</p>
-    </UnicornRemoteFrame>
+    </RemoteFrame>
   </div>,
   document.getElementById('root')
 )

@@ -1,4 +1,4 @@
-# @klarna/unicorn-remote-frames
+# @klarna/remote-frames
 
 Render a subset of the React tree to a different location, from many locations, without having to coordinate them.
 
@@ -10,7 +10,7 @@ Say that you have an HTML with two DOM nodes that you want to render to:
 <!doctype html>
 <html>
   <head>
-    <title>Unicorns</title>
+    <title>Remote frame</title>
   </head>
   <body>
     <div id="dialogs-node"></div>
@@ -19,14 +19,11 @@ Say that you have an HTML with two DOM nodes that you want to render to:
 </html>
 ```
 
-…and for some reason, you want elements in the React tree rendered under the `"main-content-node"` to be able to inject elements into the `"dialogs-node"`. The `UnicornRemoteFrame` allows you to send this elements to the remote tree (the one under `"dialogs-node"`).
+…and for some reason, you want elements in the React tree rendered under the `"main-content-node"` to be able to inject elements into the `"dialogs-node"`. The `RemoteFrame` allows you to send this elements to the remote tree (the one under `"dialogs-node"`).
 
 ```js
 import React, { Component } from 'react'
-import {
-  UnicornRemoteFrame,
-  UnicornRemoteFramesProvider
-} from '@klarna/unicorn-remote-frames'
+import { RemoteFrame, RemoteFramesProvider } from '@klarna/remote-frames'
 
 const Dialog1 = () => <article>
   <h2>Lorem ipsum</h2>
@@ -49,7 +46,7 @@ class App extends Component {
   render() {
     const { showDialog1, showDialog2 } = this.state
 
-    return <UnicornRemoteFramesProvider
+    return <RemoteFramesProvider
       targetDomElement={Promise.resolve(
         document.getElementById('dialogs-node')
       )}
@@ -66,7 +63,7 @@ class App extends Component {
         )
       }}>
       <div>
-        <h1>App that demonstrates unicorn-remote-frames</h1>
+        <h1>App that demonstrates remote-frames</h1>
         <button
           onClick={() => this.setState({
             showDialog1: !showDialog1
@@ -81,15 +78,15 @@ class App extends Component {
           {showDialog2 ? 'Hide Dialog 2' : 'Show Dialog 2'}
         </button>
 
-        {showDialog1 && <UnicornRemoteFrame>
+        {showDialog1 && <RemoteFrame>
           <Dialog1 />
-        </UnicornRemoteFrame>}
+        </RemoteFrame>}
 
-        {showDialog2 && <UnicornRemoteFrame>
+        {showDialog2 && <RemoteFrame>
           <Dialog2 />
-        </UnicornRemoteFrame>}
+        </RemoteFrame>}
       </div>
-    </UnicornRemoteFramesProvider>
+    </RemoteFramesProvider>
   }
 }
 
@@ -101,11 +98,11 @@ render(
 
 Whenever you click the "Show" / "Hide" buttons, the dialogs are sent to a React tree under the `"dialogs-node"`, and rendered one at a time. If there was no dialog being shown at the time, then the new dialog is added; if there was a dialog shown already, the new dialog is shown instead, but then if the new dialog is removed, the old dialog is shown again, as in a sort of stack.
 
-State of the elements inside the `UnicornRemoteFrame` is preserved, even when unmounted.
+State of the elements inside the `RemoteFrame` is preserved, even when unmounted.
 
-### Missing UnicornRemoteFramesProvider
+### Missing RemoteFramesProvider
 
-If there is no `UnicornRemoteFramesProvider` in the tree before the `UnicornRemoteFrame`, the content of `UnicornRemoteFrame` will just be rendered in place.
+If there is no `RemoteFramesProvider` in the tree before the `RemoteFrame`, the content of `RemoteFrame` will just be rendered in place.
 
 ### Context
 
@@ -116,9 +113,9 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { getContext, withContext } from 'recompose'
 import {
-  UnicornRemoteFrame,
-  UnicornRemoteFramesProvider
-} from '@klarna/unicorn-remote-frames'
+  RemoteFrame,
+  RemoteFramesProvider
+} from '@klarna/remote-frames'
 
 const Dialog1 = getContext({ content1: PropTypes.string })(({content1}) => <article>
   <h2>{content1}</h2>
@@ -139,7 +136,7 @@ const App = withContext(
     content2: 'Hello Dialog 2',
   })
 )(() => {
-  return <UnicornRemoteFramesProvider
+  return <RemoteFramesProvider
     contextTypes={{
       content1: PropTypes.string,
     }}
@@ -147,7 +144,7 @@ const App = withContext(
       document.getElementById('dialogs-node')
     )}>
     <div>
-      <h1>App that demonstrates unicorn-remote-frames</h1>
+      <h1>App that demonstrates remote-frames</h1>
       <button
         onClick={() => this.setState({
           showDialog1: !showDialog1
@@ -162,18 +159,18 @@ const App = withContext(
         {showDialog2 ? 'Hide Dialog 2' : 'Show Dialog 2'}
       </button>
 
-      <UnicornRemoteFrame>
+      <RemoteFrame>
         <Dialog1 />
-      </UnicornRemoteFrame>
+      </RemoteFrame>
 
-      <UnicornRemoteFrame
+      <RemoteFrame
         contextTypes={{
           content2: PropTypes.string,
         }}>
         <Dialog2 />
-      </UnicornRemoteFrame>
+      </RemoteFrame>
     </div>
-  </UnicornRemoteFramesProvider>
+  </RemoteFramesProvider>
 })
 
 render(
@@ -182,15 +179,15 @@ render(
 )
 ```
 
-### Callbacks on `UnicornRemoteFramesProvider`
+### Callbacks on `RemoteFramesProvider`
 
-Two callbacks are available on `UnicornRemoteFramesProvider`:
+Two callbacks are available on `RemoteFramesProvider`:
 
 - `onFrameAdded`: gets call whenever another frame is added to the stack
 - `onEmptyStack`: gets call whenever all frames are removed from the stack
 
 ### Passing the `targetDomElement`
 
-The `targetDomElement` used to render the new React tree can be passed directly to the `UnicornRemoteFramesProvider` as a prop, or it can be passed as a Promise, allowing you to wait until the targetDomElement is available (for example if it is rendered in another window).
+The `targetDomElement` used to render the new React tree can be passed directly to the `RemoteFramesProvider` as a prop, or it can be passed as a Promise, allowing you to wait until the targetDomElement is available (for example if it is rendered in another window).
 
 Frames stacked before the `targetDomElement` is available will be queued, so you will not lose any information.

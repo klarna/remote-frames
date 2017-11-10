@@ -76,15 +76,15 @@ const createCapturedContextComponent = (contextTypes = {}) => {
   return CapturedContextComponent
 }
 
-class UnicornRemoteFrame extends Component {
+class RemoteFrame extends Component {
   constructor(props, context) {
     super(props, context)
 
     if (context.removeFromRemote != null) {
       this.CapturedContextComponent = createCapturedContextComponent({
-        ...context.unicornContextTypes,
+        ...context.remoteFrameContextTypes,
         ...props.contextTypes,
-        ...UnicornRemoteFrame.contextTypes,
+        ...RemoteFrame.contextTypes,
       })
     }
   }
@@ -92,9 +92,9 @@ class UnicornRemoteFrame extends Component {
   componentWillReceiveProps(nextProps) {
     if (this.context.removeFromRemote != null) {
       this.CapturedContextComponent = createCapturedContextComponent({
-        ...this.context.unicornContextTypes,
+        ...this.context.remoteFrameContextTypes,
         ...nextProps.contextTypes,
-        ...UnicornRemoteFrame.contextTypes,
+        ...RemoteFrame.contextTypes,
       })
     }
   }
@@ -114,9 +114,9 @@ class UnicornRemoteFrame extends Component {
   }
 }
 
-UnicornRemoteFrame.contextTypes = {
+RemoteFrame.contextTypes = {
   removeFromRemote: PropTypes.func,
-  unicornContextTypes: PropTypes.object,
+  remoteFrameContextTypes: PropTypes.object,
 }
 
-export default UnicornRemoteFrame
+export default RemoteFrame

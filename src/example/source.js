@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { render } from 'react-dom'
 import { withContext } from 'recompose'
 import PropTypes from 'prop-types'
-import UnicornRemoteFramesProvider from '../UnicornRemoteFramesProvider'
-import UnicornRemoteFrame from '../UnicornRemoteFrame'
+import RemoteFramesProvider from '../RemoteFramesProvider'
+import RemoteFrame from '../RemoteFrame'
 import FakeArticle from './FakeArticle'
 import Section from './Section'
 
@@ -37,7 +37,7 @@ class Demo extends Component {
 
   render() {
     return (
-      <UnicornRemoteFramesProvider
+      <RemoteFramesProvider
         contextTypes={{
           theme: PropTypes.object,
           values: PropTypes.array,
@@ -52,9 +52,9 @@ class Demo extends Component {
       >
         <Wrapper>
           {this.state.initial || (
-            <UnicornRemoteFrame id="Top level section">
+            <RemoteFrame id="Top level section">
               <Section green />
-            </UnicornRemoteFrame>
+            </RemoteFrame>
           )}
           {this.state.removeFirstOne || <FakeArticle red />}
 
@@ -64,7 +64,7 @@ class Demo extends Component {
             Article
           </button>
         </Wrapper>
-      </UnicornRemoteFramesProvider>
+      </RemoteFramesProvider>
     )
   }
 }
