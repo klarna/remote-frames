@@ -47,6 +47,9 @@ dist
 node_modules
 npm-debug.log
 .npmrc
+<<<<<<< HEAD
 
-# build folder
+# build & dist folder
 build/
+dist/
+
