@@ -1,7 +1,19 @@
 {
-  "presets": [
-    "react",
-    "stage-3",
-    "es2015"
-  ]
+  "presets": ["react"],
+  "plugins": ["transform-object-rest-spread"],
+  "env": {
+    "esm": {
+      "presets": [
+        ["env", {
+          "targets": {
+            "browsers": [
+              "last 2 versions",
+              "ie >= 11"
+            ]
+          },
+          "modules": false
+        }]
+      ]
+    }
+  }
 }
