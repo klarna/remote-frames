@@ -47,7 +47,6 @@ dist
 node_modules
 npm-debug.log
 .npmrc
-# dist folder
-dist/
-# lock files
-package-lock.json
+
+# build folder
+build/
