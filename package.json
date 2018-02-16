@@ -3,11 +3,14 @@
   "version": "0.0.7",
   "description": "Render a subset of the React tree to a different location, from many locations, without having to coordinate them",
   "main": "dist/index.js",
+  "module": "dist/esm/index.js",
   "scripts": {
+    "clean": "rimraf -- dist",
     "build": "sagui build",
     "dist": "sagui dist",
     "format": "sagui format",
     "prepublishOnly": "babel src/ -d dist/ --ignore spec.js,example/",
+    "build:esm": "npm run clean && BABEL_ENV=esm babel src/ -d dist/esm/ --ignore spec.js,example/",
     "start": "sagui develop --port 3000",
     "test": "sagui test:lint",
     "test:lint": "sagui test:lint",
@@ -27,9 +30,15 @@
   "homepage": "https://github.com/klarna/remote-frames#readme",
   "devDependencies": {
     "babel-cli": "^6.26.0",
-    "babel-preset-es2015": "^6.24.1",
+    "babel-plugin-syntax-async-functions": "6.13.0",
+    "babel-plugin-syntax-dynamic-import": "6.18.0",
+    "babel-plugin-transform-object-rest-spread": "6.26.0",
+    "babel-plugin-transform-react-jsx": "6.24.1",
+    "babel-plugin-transform-regenerator": "6.26.0",
+    "babel-plugin-transform-runtime": "6.23.0",
+    "babel-preset-env": "1.6.1",
+    "babel-preset-es2015": "6.24.1",
     "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-3": "^6.24.1",
     "prop-types": "^15.6.0",
     "ramda": "^0.24.1",
     "react": "15.5.4",
@@ -37,7 +46,8 @@
     "react-redux": "^5.0.6",
     "recompose": "^0.25.1",
     "redux": "^3.7.2",
-    "sagui": "^11.1.0"
+    "sagui": "^11.1.0",
+    "rimraf": "^2.6.2"
   },
   "peerDependencies": {
     "prop-types": "^15.6.0",
