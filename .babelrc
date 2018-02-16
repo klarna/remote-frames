@@ -1,27 +1,17 @@
 {
-  "presets": [
-    "react",
-    "es2015"
-  ],
-  "plugins": [
-    "transform-object-rest-spread",
-    "transform-react-jsx",
-    "transform-runtime",
-    "transform-regenerator",
-    "syntax-async-functions",
-    "syntax-dynamic-import"
-  ],
+  "presets": ["react"],
+  "plugins": ["transform-object-rest-spread"],
   "env": {
     "esm": {
       "presets": [
         ["env", {
           "targets": {
             "browsers": [
-              "> 1%",
               "last 2 versions",
               "ie >= 11"
             ]
-          }
+          },
+          "modules": false
         }]
       ]
     }
