@@ -1,14 +1,19 @@
 language: node_js
 node_js:
-- '7'
+  - '8'
 before_script:
-- npm install
+  - npm install
+cache:
+  directories:
+    - node_modules
 script:
-- npm test
+  - npm test
+before_deploy:
+  - npm run build
 deploy:
   skip_cleanup: true
   provider: npm
-  email: ui-admin.e@klarna.com
+  email: ui.e@klarna.com
   api_key:
     secure: VTe8ORdnBAJDZC5j1qrGj60pY90i6FwfqPcAtMutTu1gBSryf3WVFgHQkp3hviH2/F3pS5KZ/udedaOWcG/sKdTpaEjacXHimtdw/ZbcelvJ9SaytqOFZbTNObShgjTKQLj/hU0hy71RyZx9s8qukpgOkA66EpXf6tArlgnykk84R+Am0ysqGqZ8gqgP/zEfd0Rxr6J5cJjNefW/P+uAJkFr17JKQ+rbd+A/tgsohuOBRievvcb4mQrNc+85agZnz7tXMDF+XRcgWpv6kQ2nhg4kr+T4y6k2iEb7FFEc/zFDqlVCK6P6Ku2P6Gfsg9WwglEAj0IwYFqW+o2g3A11InfkwWRO+xZspgMOA2RLUfAN8l9JQHUBm+IBN2NIoIwsg/w70q1lhYbUeZKUM1+ze1NGhUbtGz+dBQcm6yCKA79y5/vcFQUclj+grcL/RCKgQdbX29OgbQhj+kkwcZKiK/MwZgl59MAYQh/ESO3iw6cmjc9tb1rfCrxCP/PNYCY37xJsb3laXkXKUDSZofpRC3Sh2tKVXpql5A6QDBEeh6STOnBvYYdjtB+0DJvfweYhFagHPjasGur6X3tyS+EHgF1ZAP5biGBg7YTS4u86MPGYGz6HB611r+ZIzmO2/fvWA5j/fc7k4DhEX0WK13DlWEIgEBOx5Pqt6icPs5MfKWg=
   on:
