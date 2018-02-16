@@ -49,5 +49,3 @@ npm-debug.log
 .npmrc
 # dist folder
 dist/
-# lock files
-package-lock.json
