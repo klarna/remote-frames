@@ -1,12 +1,10 @@
 language: node_js
 node_js:
   - '8'
-before_script:
-  - npm install
 cache:
   directories:
     - node_modules
-before_deploy:
+script:
   - npm run build
 deploy:
   skip_cleanup: true
