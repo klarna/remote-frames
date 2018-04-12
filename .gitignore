@@ -47,9 +47,4 @@ dist
 node_modules
 npm-debug.log
 .npmrc
-<<<<<<< HEAD
-
-// TODO: add build folder to gitignore if we start using Artifactory.
-# build & dist folder
 dist/
-
