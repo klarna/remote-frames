@@ -4,12 +4,12 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _RemoteFrame = require('./RemoteFrame');
+var _remoteFrame = require('./remote-frame');
 
 Object.defineProperty(exports, 'RemoteFrame', {
   enumerable: true,
   get: function get() {
-    return _interopRequireDefault(_RemoteFrame).default;
+    return _interopRequireDefault(_remoteFrame).default;
   }
 });
 
