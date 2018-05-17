@@ -1,32 +1,47 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import { render } from 'react-dom'
+import {render} from 'react-dom'
 import GlobalTarget from './GlobalTarget'
+
+class CallBackContainer {
+  constructor(renderInRemote, removeFromRemote) {
+    this.renderInRemote = renderInRemote
+    this.removeFromRemote = removeFromRemote
+    this.subscriptions = []
+  }
+
+  setRenderFn(renderInRemote, removeFromRemote) {
+    this.renderInRemote = renderInRemote
+    this.removeFromRemote = removeFromRemote
+    this.subscriptions.forEach(f => f())
+  }
+
+  subscribe(f) {
+    this.subscriptions.push(f)
+  }
+}
 
 class RemoteFramesProvider extends Component {
   constructor(props) {
     super(props)
-
-    this.queue = []
-
-    this.state = {
-      renderInRemote: renderInformation => {
+    this.callBackContainer = new CallBackContainer(
+      renderInformation => {
         if (this.queue == null) {
           throw new Error(
             'The queue in the RemoteFramesProvider was flushed, yet the RemoteFrame is trying to use the `renderInRemote` that will add to the queue. This means the RemoteFrame did not pick up the React.context update: check the elements in between, if they are intercepting the context in some way.'
           )
         }
         this.queue.push(['render', renderInformation])
-      },
-      removeFromRemote: jsx => {
+      }, jsx => {
         if (this.queue == null) {
           throw new Error(
             'The queue in the RemoteFramesProvider was flushed, yet the RemoteFrame is trying to use the `removeFromRemote` that will add to the queue. This means the RemoteFrame did not pick up the React.context update: check the elements in between, if they are intercepting the context in some way.'
           )
         }
         this.queue.push(['remove', jsx])
-      },
-    }
+      }
+    )
+    this.queue = []
   }
 
   componentDidMount() {
@@ -49,30 +64,22 @@ class RemoteFramesProvider extends Component {
   }
 
   handleOnReady(renderInRemote, removeFromRemote) {
-    this.setState(
-      {
-        renderInRemote,
-        removeFromRemote,
-      },
-      () => {
-        this.queue.forEach(([type, renderInformation]) => {
-          if (type === 'render') {
-            renderInRemote(renderInformation)
-          } else {
-            removeFromRemote(renderInformation)
-          }
-        })
-
-        delete this.queue
+    this.callBackContainer.setRenderFn(renderInRemote, removeFromRemote)
+    this.queue.forEach(([type, renderInformation]) => {
+      if (type === 'render') {
+        renderInRemote(renderInformation)
+      } else {
+        removeFromRemote(renderInformation)
       }
-    )
+    })
+
+    delete this.queue
   }
 
   getChildContext() {
     return {
-      renderInRemote: this.state.renderInRemote,
-      removeFromRemote: this.state.removeFromRemote,
-      remoteFrameContextTypes: this.props.contextTypes,
+      callBackContainer: this.callBackContainer,
+      remoteFrameContextTypes: this.props.contextTypes
     }
   }
 
@@ -82,9 +89,8 @@ class RemoteFramesProvider extends Component {
 }
 
 RemoteFramesProvider.childContextTypes = {
-  renderInRemote: PropTypes.func,
-  removeFromRemote: PropTypes.func,
-  remoteFrameContextTypes: PropTypes.object,
+  callBackContainer: PropTypes.object,
+  remoteFrameContextTypes: PropTypes.object
 }
 
 export default RemoteFramesProvider
