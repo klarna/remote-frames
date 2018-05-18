@@ -2,8 +2,10 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {render} from 'react-dom'
 import GlobalTarget from './GlobalTarget'
-
-class CallBackContainer {
+// We need this in order to not relay on the consumer to make sure that the context is updated
+// With this pattern we need just to be sure the context is set at the first time, then we take care of updating it.
+// The consumer should take care of propagating its own context
+class CallbackContainer {
   constructor(renderInRemote, removeFromRemote) {
     this.renderInRemote = renderInRemote
     this.removeFromRemote = removeFromRemote
@@ -24,7 +26,7 @@ class CallBackContainer {
 class RemoteFramesProvider extends Component {
   constructor(props) {
     super(props)
-    this.callBackContainer = new CallBackContainer(
+    this.callBackContainer = new CallbackContainer(
       renderInformation => {
         if (this.queue == null) {
           throw new Error(
