@@ -1,17 +1,17 @@
 language: node_js
 node_js:
-  - '8'
+- '8'
 cache:
   directories:
-    - node_modules
+  - node_modules
 script:
-  - npm run build
+- npm run build
 deploy:
   skip_cleanup: true
   provider: npm
   email: ui.e@klarna.com
   api_key:
-    secure: VTe8ORdnBAJDZC5j1qrGj60pY90i6FwfqPcAtMutTu1gBSryf3WVFgHQkp3hviH2/F3pS5KZ/udedaOWcG/sKdTpaEjacXHimtdw/ZbcelvJ9SaytqOFZbTNObShgjTKQLj/hU0hy71RyZx9s8qukpgOkA66EpXf6tArlgnykk84R+Am0ysqGqZ8gqgP/zEfd0Rxr6J5cJjNefW/P+uAJkFr17JKQ+rbd+A/tgsohuOBRievvcb4mQrNc+85agZnz7tXMDF+XRcgWpv6kQ2nhg4kr+T4y6k2iEb7FFEc/zFDqlVCK6P6Ku2P6Gfsg9WwglEAj0IwYFqW+o2g3A11InfkwWRO+xZspgMOA2RLUfAN8l9JQHUBm+IBN2NIoIwsg/w70q1lhYbUeZKUM1+ze1NGhUbtGz+dBQcm6yCKA79y5/vcFQUclj+grcL/RCKgQdbX29OgbQhj+kkwcZKiK/MwZgl59MAYQh/ESO3iw6cmjc9tb1rfCrxCP/PNYCY37xJsb3laXkXKUDSZofpRC3Sh2tKVXpql5A6QDBEeh6STOnBvYYdjtB+0DJvfweYhFagHPjasGur6X3tyS+EHgF1ZAP5biGBg7YTS4u86MPGYGz6HB611r+ZIzmO2/fvWA5j/fc7k4DhEX0WK13DlWEIgEBOx5Pqt6icPs5MfKWg=
+    secure: DQA1tAXMbj88VZB96NpQE0ngqmwpvQsEIHBCJwkjq6B/bG2MvYZFTBS35EkDJHh5U8CtSp6eWQ1H+HhaZi6mBHsMoXKOcjTSUyAP715bUZlgLS9rp8gMHdauwAUhLUUCS5oZhDP/3MTO9f3EdEdoWYlTUM9QV0jqATeTI5SkHp6l/wCE9d5QynP7F53p5yHIgk7/oJJRdnr2biRcvBotf8/j5Lk2eJkNg7hFO/ZBvPztCb0tKHURLMjxlrIc8mUXV2ra5mQv3YwzvODF9SgQjhWXVL9jM1aTDikE2UOMou7WLRqVqsxDhC7STHv6PkNsYVXprHHdilsAgDdwZ3ZQD4LseG5fGs5tdSDp8K1Jy5P0GA9k68ox+wo6SZNF0PnA2YYBxp+/K2WA+wgnmNas/b2GyC0qCkKNBzDA+0a0SBUAYt4qxOrTL9Xg/W8dn7HtfObXHBYqAD6+BD2Ki0ufT7lI2SrZXLPs+XnXgEL4elinMDKTecbLL3ODtLEYyNyO89Y8Qxa6acqU7dVcTfICumE+Pi7f2t5dlgSMNuixje8tDwPAHXWVyZ+KTzLssLWNmGvf3Nljp3vt/GD7ptvmRIIaZI1n0sFwDrQQ0ggowz+zXPUd5pLEbPz+BJhyCFrDU6t4uMxcaR7gme6LtyzWuRRj2jL9KvfbN4j4bXTjhWk=
   on:
     tags: true
     repo: klarna/remote-frames
