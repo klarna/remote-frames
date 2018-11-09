@@ -29,6 +29,16 @@ class RemoteFramesProvider extends Component {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.targetDomElement !== prevProps.targetDomElement) {
+      if (this.props.targetDomElement instanceof HTMLElement) {
+        this.renderGlobalTarget(this.props.targetDomElement)
+      } else {
+        this.props.targetDomElement.then(this.renderGlobalTarget.bind(this))
+      }
+    }
+  }
+
   componentDidMount() {
     if (this.props.targetDomElement instanceof HTMLElement) {
       this.renderGlobalTarget(this.props.targetDomElement)
@@ -62,8 +72,6 @@ class RemoteFramesProvider extends Component {
             removeFromRemote(renderInformation)
           }
         })
-
-        delete this.queue
       }
     )
   }

@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import ArticleComponent from './component'
-import RemoteFrame from '../../RemoteFrame'
+import RemoteFrame from '../../remote-frame'
 
 class ArticleContainer extends React.Component {
   render() {
@@ -13,13 +13,11 @@ class ArticleContainer extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    likes: state.likes,
-    red: state.red,
-    green: state.green,
-  }
-}
+const mapStateToProps = state => ({
+  likes: state.likes,
+  red: state.red,
+  green: state.green,
+})
 
 let globalDispatch = () => {}
 
@@ -37,4 +35,9 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps, null, { pure: false })(ArticleContainer)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+  null,
+  { pure: false }
+)(ArticleContainer)
