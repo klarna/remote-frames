@@ -58,6 +58,17 @@ var RemoteFramesProvider = function (_Component) {
   }
 
   _createClass(RemoteFramesProvider, [{
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate(prevProps) {
+      if (this.props.targetDomElement !== prevProps.targetDomElement) {
+        if (this.props.targetDomElement instanceof HTMLElement) {
+          this.renderGlobalTarget(this.props.targetDomElement);
+        } else {
+          this.props.targetDomElement.then(this.renderGlobalTarget.bind(this));
+        }
+      }
+    }
+  }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
       if (this.props.targetDomElement instanceof HTMLElement) {
@@ -95,8 +106,6 @@ var RemoteFramesProvider = function (_Component) {
             removeFromRemote(renderInformation);
           }
         });
-
-        delete _this2.queue;
       });
     }
   }, {

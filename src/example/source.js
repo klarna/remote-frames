@@ -3,7 +3,7 @@ import { render } from 'react-dom'
 import { withContext } from 'recompose'
 import PropTypes from 'prop-types'
 import RemoteFramesProvider from '../RemoteFramesProvider'
-import RemoteFrame from '../RemoteFrame'
+import RemoteFrame from '../remote-frame'
 import FakeArticle from './FakeArticle'
 import Section from './Section'
 
