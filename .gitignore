@@ -44,6 +44,7 @@ typings/
 .DS_Store
 .sagui
 dist
+build
 node_modules
 npm-debug.log
 .npmrc
