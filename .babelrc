@@ -1,11 +1,11 @@
 {
-  "presets": ["react"],
-  "plugins": ["transform-object-rest-spread"],
+  "presets": ["@babel/preset-react"],
+  "plugins": ["@babel/plugin-proposal-object-rest-spread"],
   "env": {
     "esm": {
       "presets": [
         [
-          "env", {
+          "@babel/preset-env", {
           "targets": {
             "browsers": [
               "last 2 versions",
@@ -18,7 +18,7 @@
     },
     "cjs": {
       "presets": [
-        ["env", {
+        ["@babel/preset-env", {
           "targets": {
             "browsers": [
               "last 2 versions",
