@@ -5,8 +5,8 @@ import equals from 'ramda/src/equals'
 const setContextComponentsCache = []
 
 const createSetContextComponent = (contextTypes = {}) => {
-  const cachedSetContextComponents = setContextComponentsCache.filter(([cachedContextTypes]) =>
-    equals(cachedContextTypes, contextTypes)
+  const cachedSetContextComponents = setContextComponentsCache.filter(
+    ([cachedContextTypes]) => equals(cachedContextTypes, contextTypes)
   )
 
   if (cachedSetContextComponents.length === 1) {
@@ -81,7 +81,10 @@ class GlobalTarget extends Component {
       <this.SetContextComponent context={context}>
         {stack.map((jsx, index) => {
           return (
-            <div key={index} style={{ display: index === stack.length - 1 ? 'block' : 'none' }}>
+            <div
+              key={index}
+              style={{ display: index === stack.length - 1 ? 'block' : 'none' }}
+            >
               {jsx}
             </div>
           )
