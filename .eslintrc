@@ -1,3 +1,7 @@
 {
-  "extends": "./node_modules/sagui/lib/javascript-eslintrc.json"
+  "extends": [
+    "eslint-config-airbnb",
+    "prettier",
+    "prettier/react"
+  ]
 }

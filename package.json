@@ -1,21 +1,15 @@
 {
   "name": "@klarna/remote-frames",
-  "version": "0.2.5",
+  "version": "0.2.6-0",
   "description": "Render a subset of the React tree to a different location, from many locations, without having to coordinate them",
   "main": "build/esm/index.js",
   "scripts": {
     "clean": "rimraf -- build",
-    "dist": "sagui dist",
-    "format": "sagui format",
     "build:esm": "cross-env BABEL_ENV=esm babel src/ --copy-files --out-dir build/esm/ --ignore spec.js,example/",
     "build:cjs": "cross-env BABEL_ENV=cjs babel src/ --copy-files --out-dir build/cjs/ --ignore example/",
     "build": "npm run clean && cross-env NODE_ENV=production run-p build:*",
-    "start": "sagui develop --port 3000",
-    "test": "sagui test:lint",
-    "test:lint": "sagui test:lint",
-    "test:typecheck": "sagui test:typecheck",
-    "test:unit": "sagui test:unit --coverage",
-    "test:unit:watch": "sagui test:unit --watch"
+    "format": "prettier --semi false --trailing-comma es5 --single-quote --write 'src/*.js' 'src/remote-frame/*.js'",
+    "lint": "eslint 'src/*.js' 'src/remote-frame/*.js'"
   },
   "repository": {
     "type": "git",
@@ -36,7 +30,14 @@
     "@types/react": "^16.3.9",
     "@types/react-dom": "^16.0.5",
     "cross-env": "^5.0.5",
+    "eslint": "^5.14.1",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-prettier": "^4.0.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-react": "^7.12.4",
     "npm-run-all": "^4.1.5",
+    "prettier": "^1.16.4",
     "prop-types": "^15.6.0",
     "ramda": "^0.24.1",
     "react": "^16.6.3",
@@ -44,8 +45,7 @@
     "react-redux": "^5.0.6",
     "recompose": "^0.25.1",
     "redux": "^3.7.2",
-    "rimraf": "^2.6.2",
-    "sagui": "^11.1.0"
+    "rimraf": "^2.6.2"
   },
   "peerDependencies": {
     "prop-types": "^15.6.0",
