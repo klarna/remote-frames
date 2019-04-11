@@ -29,13 +29,13 @@ const createCapturedContextComponent = (contextTypes = {}) => {
 
   class CapturedContextComponent extends Component {
     componentDidMount() {
-      const { renderInRemote } = this.context
+      const { renderInRemote } = this.context.callBackContainer
       const { children } = this.props
 
       doRemoteRender(
         renderInRemote,
         this.context,
-        { renderInRemote: PropTypes.func, ...contextTypes },
+        { callBackContainer: PropTypes.object, ...contextTypes },
         children
       )
     }
@@ -45,13 +45,13 @@ const createCapturedContextComponent = (contextTypes = {}) => {
     }
 
     componentDidUpdate() {
-      const { renderInRemote } = this.context
+      const { renderInRemote } = this.context.callBackContainer
       const { children } = this.props
 
       doRemoteRender(
         renderInRemote,
         this.context,
-        { renderInRemote: PropTypes.func, ...contextTypes },
+        { callBackContainer: PropTypes.object, ...contextTypes },
         children
       )
     }
@@ -62,12 +62,12 @@ const createCapturedContextComponent = (contextTypes = {}) => {
   }
 
   CapturedContextComponent.contextTypes = {
-    renderInRemote: PropTypes.func,
+    callBackContainer: PropTypes.object,
     ...contextTypes,
   }
 
   CapturedContextComponent.childContextTypes = {
-    renderInRemote: PropTypes.func,
+    callBackContainer: PropTypes.object,
     ...contextTypes,
   }
 
@@ -80,7 +80,7 @@ class RemoteFrame extends Component {
   constructor(props, context) {
     super(props, context)
 
-    if (context.removeFromRemote != null) {
+    if (context.callBackContainer != null) {
       this.CapturedContextComponent = createCapturedContextComponent({
         ...context.remoteFrameContextTypes,
         ...props.contextTypes,
@@ -90,7 +90,8 @@ class RemoteFrame extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.context.removeFromRemote != null) {
+    if (this.context.callBackContainer != null) {
+      this.context.callBackContainer.subscribe(() => this.forceUpdate())
       this.CapturedContextComponent = createCapturedContextComponent({
         ...this.context.remoteFrameContextTypes,
         ...nextProps.contextTypes,
@@ -100,8 +101,8 @@ class RemoteFrame extends Component {
   }
 
   componentWillUnmount() {
-    if (this.context.removeFromRemote != null) {
-      this.context.removeFromRemote(this.props.children)
+    if (this.context.callBackContainer != null) {
+      this.context.callBackContainer.removeFromRemote(this.props.children)
     }
   }
 
@@ -115,7 +116,7 @@ class RemoteFrame extends Component {
 }
 
 RemoteFrame.contextTypes = {
-  removeFromRemote: PropTypes.func,
+  callBackContainer: PropTypes.object,
   remoteFrameContextTypes: PropTypes.object,
 }
 
