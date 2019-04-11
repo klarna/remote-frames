@@ -1,7 +1,7 @@
 # @klarna/remote-frames
 
 [![Build Status](https://travis-ci.org/klarna/remote-frames.svg?branch=master)](https://travis-ci.org/klarna/remote-frames)
-[![npm version](https://img.shields.io/npm/v/@klarna/remote-frames.svg?maxAge=10000)](https://www.npmjs.com/package/@klarna/remote-frames)
+[![npm version](https://img.shields.io/npm/v/@klarna/remote-frames.svg)](https://www.npmjs.com/package/@klarna/remote-frames)
 
 Render a subset of the React tree to a different location, from many locations, without having to coordinate them.
 

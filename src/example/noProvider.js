@@ -1,6 +1,6 @@
 import React from 'react'
 import { render } from 'react-dom'
-import RemoteFrame from '../RemoteFrame'
+import RemoteFrame from '../remote-frame'
 
 render(
   <div>
