@@ -65,7 +65,7 @@ class RemoteFramesProvider extends Component {
   }
 
   renderGlobalTarget(targetDomElement) {
-    const Target = (
+    const target = (
       <GlobalTarget
         onAddStackElement={this.props.onFrameAdded}
         onEmptyStack={this.props.onNoFrames}
@@ -78,13 +78,13 @@ class RemoteFramesProvider extends Component {
     if (WrapperComponent) {
       render(
         <WrapperComponent>
-          <Target />
+          {target}
         </WrapperComponent>,
         targetDomElement
       )
     } else {
       render(
-        <Target />,
+        target,
         targetDomElement
       )
     }
