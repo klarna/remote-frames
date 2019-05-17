@@ -65,14 +65,29 @@ class RemoteFramesProvider extends Component {
   }
 
   renderGlobalTarget(targetDomElement) {
-    render(
+    const target = (
       <GlobalTarget
         onAddStackElement={this.props.onFrameAdded}
         onEmptyStack={this.props.onNoFrames}
         onReady={this.handleOnReady.bind(this)}
-      />,
-      targetDomElement
+      />
     )
+
+    const WrapperComponent = this.props.wrapperComponent
+
+    if (WrapperComponent) {
+      render(
+        <WrapperComponent>
+          {target}
+        </WrapperComponent>,
+        targetDomElement
+      )
+    } else {
+      render(
+        target,
+        targetDomElement
+      )
+    }
   }
 
   handleOnReady(renderInRemote, removeFromRemote) {
