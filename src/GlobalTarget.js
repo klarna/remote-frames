@@ -76,21 +76,29 @@ class GlobalTarget extends Component {
 
   render() {
     const { context, stack } = this.state
-
-    return (
+    const target = (
       <this.SetContextComponent context={context}>
         {stack.map((jsx, index) => {
           return (
-            <div
-              key={index}
-              style={{ display: index === stack.length - 1 ? 'block' : 'none' }}
-            >
+            <div key={index} style={{ display: index === stack.length - 1 ? 'block' : 'none' }}>
               {jsx}
             </div>
           )
         })}
       </this.SetContextComponent>
     )
+
+    const WrapperComponent = this.props.wrapperComponent
+
+    if (WrapperComponent) {
+      return (
+       <WrapperComponent>
+         {target}
+       </WrapperComponent>
+      )
+    }
+
+    return target
   }
 }
 
