@@ -47,7 +47,11 @@ class RemoteFramesProvider extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.targetDomElement !== prevProps.targetDomElement) {
+    if (
+      this.props.targetDomElement !== prevProps.targetDomElement ||
+      this.props.wrapperComponent !== prevProps.wrapperComponent ||
+      this.props.wrapperComponentProps !== prevProps.wrapperComponentProps
+    ) {
       if (this.props.targetDomElement instanceof HTMLElement) {
         this.renderGlobalTarget(this.props.targetDomElement)
       } else {
@@ -74,10 +78,11 @@ class RemoteFramesProvider extends Component {
     )
 
     const WrapperComponent = this.props.wrapperComponent
+    const wrapperComponentProps = this.props.wrapperComponentProps
 
     if (WrapperComponent) {
       render(
-        <WrapperComponent>
+        <WrapperComponent {...wrapperComponentProps}>
           {target}
         </WrapperComponent>,
         targetDomElement
