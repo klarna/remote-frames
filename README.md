@@ -194,3 +194,14 @@ Two callbacks are available on `RemoteFramesProvider`:
 The `targetDomElement` used to render the new React tree can be passed directly to the `RemoteFramesProvider` as a prop, or it can be passed as a Promise, allowing you to wait until the targetDomElement is available (for example if it is rendered in another window).
 
 Frames stacked before the `targetDomElement` is available will be queued, so you will not lose any information.
+
+### Wrapping into `wrapperComponent`
+
+The `wrapperComponent` (alongside with `wrapperComponentProps`) used to wrap `GlobalTarget` into HOC (for example if it is needed to wrap everything into `ThemeProvider`, etc.).
+
+```js
+<RemoteFramesProvider
+  targetDomElement={document.getElementById('dialogs-node')}
+  wrapperComponent={ThemeProvider}
+  wrapperComponentProps={{ value: themeName }}>
+```
