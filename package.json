@@ -1,6 +1,6 @@
 {
   "name": "@klarna/remote-frames",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Render a subset of the React tree to a different location, from many locations, without having to coordinate them",
   "main": "build/esm/index.js",
   "scripts": {
