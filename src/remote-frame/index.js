@@ -66,11 +66,6 @@ const createCapturedContextComponent = (contextTypes = {}) => {
     ...contextTypes,
   }
 
-  CapturedContextComponent.childContextTypes = {
-    callBackContainer: PropTypes.object,
-    ...contextTypes,
-  }
-
   capturedContextComponentsCache.push([contextTypes, CapturedContextComponent])
 
   return CapturedContextComponent
