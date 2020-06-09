@@ -49,6 +49,7 @@ class Demo extends Component {
         }
         onFrameAdded={jsx => console.log('onFrameAdded', jsx)}
         onNoFrames={jsx => console.log('onNoFrames', jsx)}
+        onFrameRemoved={jsx => console.log('onFrameRemoved', jsx)}
       >
         <Wrapper>
           {this.state.initial || (

@@ -73,6 +73,7 @@ class RemoteFramesProvider extends Component {
       <GlobalTarget
         onAddStackElement={this.props.onFrameAdded}
         onEmptyStack={this.props.onNoFrames}
+        onRemoveStackElement={this.props.onFrameRemoved}
         onReady={this.handleOnReady.bind(this)}
       />
     )
