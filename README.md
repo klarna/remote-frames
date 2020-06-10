@@ -59,6 +59,12 @@ class App extends Component {
           frameJSX
         )
       }}
+      onFrameRemoved={frameJSX => {
+        console.log(
+          'a frame was removed from the dialogs-node stack',
+          frameJSX
+        )
+      }}
       onNoFrames={lastJSXRemoved => {
         console.log(
           'all frames have been removed from the stack',
@@ -186,8 +192,9 @@ render(
 
 Two callbacks are available on `RemoteFramesProvider`:
 
-- `onFrameAdded`: gets call whenever another frame is added to the stack
-- `onNoFrames`: gets call whenever all frames are removed from the stack
+- `onFrameAdded`: gets called whenever another frame is added to the stack
+- `onNoFrames`: gets called whenever all frames are removed from the stack
+- `onFrameRemoved`: gets called whenever a frame is removed from the stack
 
 ### Passing the `targetDomElement`
 

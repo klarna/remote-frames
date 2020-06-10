@@ -64,6 +64,8 @@ class GlobalTarget extends Component {
           stack: stack.filter(({ type }) => type !== jsx.type),
         }),
         () => {
+          this.props.onRemoveStackElement(jsx)
+
           if (this.state.stack.length === 0) {
             this.props.onEmptyStack(jsx)
           }
@@ -97,6 +99,7 @@ class GlobalTarget extends Component {
 GlobalTarget.defaultProps = {
   onAddStackElement: () => {},
   onEmptyStack: () => {},
+  onRemoveStackElement: () => {}
 }
 
 export default GlobalTarget
