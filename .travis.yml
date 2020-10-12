@@ -15,3 +15,7 @@ deploy:
   on:
     tags: true
     repo: klarna/remote-frames
+branches:
+  only:
+    - master
+    - /^v\d+\.\d+\.\d+/
