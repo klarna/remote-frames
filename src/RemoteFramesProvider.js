@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import {render} from 'react-dom'
+import {render, unmountComponentAtNode} from 'react-dom'
 import GlobalTarget from './GlobalTarget'
+
 // We need this in order to not relay on the consumer to make sure that the context is updated
 // With this pattern we need just to be sure the context is set at the first time, then we take care of updating it.
 // The consumer should take care of propagating its own context
@@ -69,6 +70,8 @@ class RemoteFramesProvider extends Component {
   }
 
   renderGlobalTarget(targetDomElement) {
+    unmountComponentAtNode(targetDomElement)
+
     const target = (
       <GlobalTarget
         onAddStackElement={this.props.onFrameAdded}
