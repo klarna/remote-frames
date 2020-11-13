@@ -37,21 +37,23 @@ class GlobalTarget extends Component {
 
   componentDidMount() {
     this.renderInRemote = ({ jsx, context, contextTypes }) => {
-      this.SetContextComponent = createSetContextComponent(contextTypes)
+      const newStackItem = {
+        jsx,
+        SetContextComponent: createSetContextComponent(contextTypes),
+        context
+      };
 
       if (this.stackTypes.filter(type => type === jsx.type).length === 0) {
         this.stackTypes = [...this.stackTypes, jsx.type]
 
         this.setState(({ stack }) => ({
-          context,
-          stack: [...stack, jsx],
+          stack: [...stack, newStackItem],
         }))
 
         this.props.onAddStackElement(jsx)
       } else {
         this.setState(({ stack }) => ({
-          context,
-          stack: stack.map(item => (item.type === jsx.type ? jsx : item)),
+          stack: stack.map(item => (item.jsx.type === jsx.type ? newStackItem : item)),
         }))
       }
     }
@@ -61,7 +63,7 @@ class GlobalTarget extends Component {
 
       this.setState(
         ({ stack }) => ({
-          stack: stack.filter(({ type }) => type !== jsx.type),
+          stack: stack.filter(item => item.jsx.type !== jsx.type),
         }),
         () => {
           this.props.onRemoveStackElement(jsx)
@@ -77,21 +79,23 @@ class GlobalTarget extends Component {
   }
 
   render() {
-    const { context, stack } = this.state
+    const { stack } = this.state
 
     return (
-      <this.SetContextComponent context={context}>
-        {stack.map((jsx, index) => {
+      <React.Fragment>
+        {stack.map(({jsx, SetContextComponent, context}, index) => {
           return (
-            <div
-              key={index}
-              style={{ display: index === stack.length - 1 ? 'block' : 'none' }}
-            >
-              {jsx}
-            </div>
+            <SetContextComponent context={context}>
+              <div
+                key={index}
+                style={{ display: index === stack.length - 1 ? 'block' : 'none' }}
+              >
+                {jsx}
+              </div>
+            </SetContextComponent>
           )
         })}
-      </this.SetContextComponent>
+      </React.Fragment>
     )
   }
 }
