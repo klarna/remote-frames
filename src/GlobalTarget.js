@@ -28,8 +28,6 @@ class GlobalTarget extends Component {
 
     this.stackTypes = []
 
-    this.SetContextComponent = createSetContextComponent({})
-
     this.state = {
       stack: [],
     }
