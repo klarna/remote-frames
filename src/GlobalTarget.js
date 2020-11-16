@@ -83,11 +83,8 @@ class GlobalTarget extends Component {
       <React.Fragment>
         {stack.map(({jsx, SetContextComponent, context}, index) => {
           return (
-            <SetContextComponent context={context}>
-              <div
-                key={index}
-                style={{ display: index === stack.length - 1 ? 'block' : 'none' }}
-              >
+            <SetContextComponent key={index} context={context}>
+              <div style={{ display: index === stack.length - 1 ? 'block' : 'none' }}>
                 {jsx}
               </div>
             </SetContextComponent>
