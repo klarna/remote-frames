@@ -26,23 +26,21 @@ class GlobalTarget extends Component {
   constructor() {
     super()
 
-    this.stackTypes = []
-
     this.state = {
       stack: [],
     }
   }
 
   componentDidMount() {
-    this.renderInRemote = ({ jsx, context, contextTypes }) => {
+    this.renderInRemote = ({ jsx, context, contextTypes, id }) => {
       const newStackItem = {
         jsx,
         SetContextComponent: createSetContextComponent(contextTypes),
-        context
+        context,
+        id
       };
-
-      if (this.stackTypes.filter(type => type === jsx.type).length === 0) {
-        this.stackTypes = [...this.stackTypes, jsx.type]
+      const stackTypes = this.state.stack.map(({jsx}) => jsx.type);
+      if (stackTypes.filter(type => type === jsx.type).length === 0) {
 
         this.setState(({ stack }) => ({
           stack: [...stack, newStackItem],
@@ -56,12 +54,10 @@ class GlobalTarget extends Component {
       }
     }
 
-    this.removeFromRemote = jsx => {
-      this.stackTypes = this.stackTypes.filter(type => type !== jsx.type)
-
+    this.removeFromRemote = ({jsx, id}) => {
       this.setState(
         ({ stack }) => ({
-          stack: stack.filter(item => item.jsx.type !== jsx.type),
+          stack: stack.filter(item => item.id !== id),
         }),
         () => {
           this.props.onRemoveStackElement(jsx)
