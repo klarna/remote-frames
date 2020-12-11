@@ -19,7 +19,7 @@ const doRemoteRender = (renderInRemote, context, contextTypes, children, id) => 
   })
 }
 
-const createCapturedContextComponent = (contextTypes = {}) => {
+const createCapturedContextComponent = (contextTypes = {}, id) => {
   const cachedCapturedContextComponents = capturedContextComponentsCache.filter(
     ([cachedContextTypes]) => equals(cachedContextTypes, contextTypes)
   )
@@ -38,7 +38,7 @@ const createCapturedContextComponent = (contextTypes = {}) => {
         this.context,
         { callBackContainer: PropTypes.object, ...contextTypes },
         children,
-        this.uniqueId
+        id
       )
     }
 
@@ -88,7 +88,7 @@ class RemoteFrame extends Component {
         ...context.remoteFrameContextTypes,
         ...props.contextTypes,
         ...RemoteFrame.contextTypes,
-      })
+      }, this.uniqueId)
     }
   }
 
@@ -99,7 +99,7 @@ class RemoteFrame extends Component {
         ...this.context.remoteFrameContextTypes,
         ...nextProps.contextTypes,
         ...RemoteFrame.contextTypes,
-      })
+      }, this.uniqueId)
     }
   }
 
