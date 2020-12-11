@@ -19,7 +19,7 @@ const doRemoteRender = (renderInRemote, context, contextTypes, children, id) => 
   })
 }
 
-const createCapturedContextComponent = (contextTypes = {}, id) => {
+const createCapturedContextComponent = (contextTypes = {}) => {
   const cachedCapturedContextComponents = capturedContextComponentsCache.filter(
     ([cachedContextTypes]) => equals(cachedContextTypes, contextTypes)
   )
@@ -31,7 +31,7 @@ const createCapturedContextComponent = (contextTypes = {}, id) => {
   class CapturedContextComponent extends Component {
     componentDidMount() {
       const { renderInRemote } = this.context.callBackContainer
-      const { children } = this.props
+      const { children, remoteFrameId: id } = this.props
 
       doRemoteRender(
         renderInRemote,
@@ -48,13 +48,14 @@ const createCapturedContextComponent = (contextTypes = {}, id) => {
 
     componentDidUpdate() {
       const { renderInRemote } = this.context.callBackContainer
-      const { children } = this.props
+      const { children, remoteFrameId: id } = this.props
 
       doRemoteRender(
         renderInRemote,
         this.context,
         { callBackContainer: PropTypes.object, ...contextTypes },
-        children
+        children,
+        id
       )
     }
 
@@ -88,7 +89,7 @@ class RemoteFrame extends Component {
         ...context.remoteFrameContextTypes,
         ...props.contextTypes,
         ...RemoteFrame.contextTypes,
-      }, this.uniqueId)
+      })
     }
   }
 
@@ -99,7 +100,7 @@ class RemoteFrame extends Component {
         ...this.context.remoteFrameContextTypes,
         ...nextProps.contextTypes,
         ...RemoteFrame.contextTypes,
-      }, this.uniqueId)
+      })
     }
   }
 
@@ -111,9 +112,9 @@ class RemoteFrame extends Component {
 
   render() {
     if (this.CapturedContextComponent != null) {
-      return <this.CapturedContextComponent {...this.props} />
+      return <this.CapturedContextComponent {...this.props} remoteFrameId={this.uniqueId} />
     } else {
-      return this.props.children
+      return this.props.children;
     }
   }
 }
