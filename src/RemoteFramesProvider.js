@@ -35,13 +35,13 @@ class RemoteFramesProvider extends Component {
           )
         }
         this.queue.push(['render', renderInformation])
-      }, jsx => {
+      }, renderInformation => {
         if (this.queue == null) {
           throw new Error(
             'The queue in the RemoteFramesProvider was flushed, yet the RemoteFrame is trying to use the `removeFromRemote` that will add to the queue. This means the RemoteFrame did not pick up the React.context update: check the elements in between, if they are intercepting the context in some way.'
           )
         }
-        this.queue.push(['remove', jsx])
+        this.queue.push(['remove', renderInformation])
       }
     )
     this.queue = []

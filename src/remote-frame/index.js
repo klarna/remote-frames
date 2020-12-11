@@ -4,7 +4,7 @@ import equals from 'ramda/src/equals'
 
 const capturedContextComponentsCache = []
 
-const doRemoteRender = (renderInRemote, context, contextTypes, children) => {
+const doRemoteRender = (renderInRemote, context, contextTypes, children, id) => {
   renderInRemote({
     jsx: children,
     context: Object.keys(contextTypes).reduce(
@@ -15,6 +15,7 @@ const doRemoteRender = (renderInRemote, context, contextTypes, children) => {
       {}
     ),
     contextTypes,
+    id
   })
 }
 
@@ -36,7 +37,8 @@ const createCapturedContextComponent = (contextTypes = {}) => {
         renderInRemote,
         this.context,
         { callBackContainer: PropTypes.object, ...contextTypes },
-        children
+        children,
+        this.uniqueId
       )
     }
 
@@ -79,6 +81,7 @@ const createCapturedContextComponent = (contextTypes = {}) => {
 class RemoteFrame extends Component {
   constructor(props, context) {
     super(props, context)
+    this.uniqueId = Date.now().toString(36) + Math.random().toString(36).substring(2);
 
     if (context.callBackContainer != null) {
       this.CapturedContextComponent = createCapturedContextComponent({
@@ -102,7 +105,7 @@ class RemoteFrame extends Component {
 
   componentWillUnmount() {
     if (this.context.callBackContainer != null) {
-      this.context.callBackContainer.removeFromRemote(this.props.children)
+      this.context.callBackContainer.removeFromRemote({jsx: this.props.children, id: this.uniqueId})
     }
   }
 
