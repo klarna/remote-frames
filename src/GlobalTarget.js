@@ -33,24 +33,18 @@ class GlobalTarget extends Component {
 
   componentDidMount() {
     this.renderInRemote = ({ jsx, context, contextTypes, id }) => {
-      const newStackItem = {
-        jsx,
-        SetContextComponent: createSetContextComponent(contextTypes),
-        context,
-        id
-      };
-      const stackTypes = this.state.stack.map(({jsx}) => jsx.type);
-      if (stackTypes.filter(type => type === jsx.type).length === 0) {
-
+      const stackItem = this.state.stack.filter(({id: stackId}) => stackId === id)[0];
+      if (!stackItem) {
         this.setState(({ stack }) => ({
-          stack: [...stack, newStackItem],
+          stack: [...stack, {
+            jsx,
+            SetContextComponent: createSetContextComponent(contextTypes),
+            context,
+            id
+          }],
         }))
 
         this.props.onAddStackElement(jsx)
-      } else {
-        this.setState(({ stack }) => ({
-          stack: stack.map(item => (item.jsx.type === jsx.type ? newStackItem : item)),
-        }))
       }
     }
 
@@ -74,7 +68,6 @@ class GlobalTarget extends Component {
 
   render() {
     const { stack } = this.state
-
     return (
       <React.Fragment>
         {stack.map(({jsx, SetContextComponent, context}, index) => {

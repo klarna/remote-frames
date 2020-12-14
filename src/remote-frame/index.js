@@ -31,14 +31,14 @@ const createCapturedContextComponent = (contextTypes = {}) => {
   class CapturedContextComponent extends Component {
     componentDidMount() {
       const { renderInRemote } = this.context.callBackContainer
-      const { children } = this.props
+      const { children, remoteFrameId: id } = this.props
 
       doRemoteRender(
         renderInRemote,
         this.context,
         { callBackContainer: PropTypes.object, ...contextTypes },
         children,
-        this.uniqueId
+        id
       )
     }
 
@@ -48,13 +48,14 @@ const createCapturedContextComponent = (contextTypes = {}) => {
 
     componentDidUpdate() {
       const { renderInRemote } = this.context.callBackContainer
-      const { children } = this.props
+      const { children, remoteFrameId: id } = this.props
 
       doRemoteRender(
         renderInRemote,
         this.context,
         { callBackContainer: PropTypes.object, ...contextTypes },
-        children
+        children,
+        id
       )
     }
 
@@ -111,9 +112,9 @@ class RemoteFrame extends Component {
 
   render() {
     if (this.CapturedContextComponent != null) {
-      return <this.CapturedContextComponent {...this.props} />
+      return <this.CapturedContextComponent {...this.props} remoteFrameId={this.uniqueId} />
     } else {
-      return this.props.children
+      return this.props.children;
     }
   }
 }
