@@ -45,6 +45,15 @@ class GlobalTarget extends Component {
         }))
 
         this.props.onAddStackElement(jsx)
+      } else {
+        this.setState(({ stack }) => ({
+          stack: stack.map(item => (item.id === id ? {
+            jsx,
+            SetContextComponent: createSetContextComponent(contextTypes),
+            context,
+            id
+          } : item)),
+        }))
       }
     }
 
