@@ -26,6 +26,7 @@ Say that you have an HTML with two DOM nodes that you want to render to:
 
 ```js
 import React, { Component } from 'react'
+import { render } from 'react-dom'
 import { RemoteFrame, RemoteFramesProvider } from '@klarna/remote-frames'
 
 const Dialog1 = () => <article>
@@ -119,6 +120,7 @@ For the React.context to be propagated to the new tree, you have to manually spe
 
 ```js
 import React, { Component } from 'react'
+import { render } from 'react-dom'
 import PropTypes from 'prop-types'
 import { getContext, withContext } from 'recompose'
 import {
