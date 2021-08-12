@@ -1,3 +1,7 @@
+# Deprecated
+
+No longer being maintained.
+
 # @klarna/remote-frames
 
 [![Build Status](https://travis-ci.org/klarna/remote-frames.svg?branch=master)](https://travis-ci.org/klarna/remote-frames)
